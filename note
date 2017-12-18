@@ -1,1 +1,45 @@
 http://phylab.fudan.edu.cn/doku.php?id=course:python:start
+
+-- python
+--下载 anaconda3
+https://www.anaconda.com/download/#windows
+
+-- PATH
+C:\Users\lixiaoqian\AppData\Local\Continuum\anaconda3
+C:\Users\lixiaoqian\AppData\Local\Continuum\anaconda3\Library\mingw-w64\bin
+C:\Users\lixiaoqian\AppData\Local\Continuum\anaconda3\Library\usr\bin
+C:\Users\lixiaoqian\AppData\Local\Continuum\anaconda3\Library\bin
+C:\Users\lixiaoqian\AppData\Local\Continuum\anaconda3\Scripts
+
+-- 包
+cmd> conda list
+
+cmd> conda install -c conda-forge jupyter_contrib_nbextensions
+
+-- 如果缺包的话
+cmd> pip install pymysql
+
+-- Jupyter Notebook
+jupyter notebook --notebook-dir=E:\pywork\
+
+
+
+
+-- 备注
+C:\Users\lixiaoqian\Downloads\WinPython-64bit-3.5.4.0Qt5\settings\.spyder-py3
+
+
+
+
+
+
+C:\Users\lixiaoqian\AppData\Local\Tesseract-OCR
+
+
+
+
+
+
+
+
+

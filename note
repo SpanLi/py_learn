@@ -2,10 +2,11 @@
 https://github.com/jindongwang/MachineLearning
 http://m.blog.csdn.net/skelking/article/details/41279657
 https://github.com/EbookFoundation/free-programming-books/blob/master/free-programming-books.md#python
-
 http://phylab.fudan.edu.cn/doku.php?id=course:python:start
+--python时序数据分析 实例
+https://www.cnblogs.com/bradleon/p/6832867.html
 
--- python
+
 --下载 anaconda3
 https://www.anaconda.com/download/#windows
 
@@ -18,7 +19,6 @@ C:\Users\lixiaoqian\AppData\Local\Continuum\anaconda3\Scripts
 
 -- 包
 cmd> conda list
-
 cmd> conda install -c conda-forge jupyter_contrib_nbextensions
 
 -- 如果缺包的话
@@ -26,8 +26,6 @@ cmd> pip install pymysql
 
 -- Jupyter Notebook
 jupyter notebook --notebook-dir=E:\pywork\
-
-
 
 
 -- 备注

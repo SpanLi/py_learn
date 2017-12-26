@@ -52,8 +52,8 @@ def sendEmail(authInfo, emailInfo, subject, plainText, htmlText, file):
     # msgImage.add_header('Content-ID', '<image1>')
     # msgRoot.attach(msgImage)
     part = MIMEApplication(
-        open('E:/opt/script/data/'+datetime.datetime.now().strftime('%Y%m%d')+'20170923001/data.zip', 'rb').read())
-    part.add_header('Content-Disposition', 'attachment', filename="data.zip")
+        open('E:', 'rb').read())
+    part.add_header('Content-Disposition', 'attachment', filename="*.zip")
     msgRoot.attach(part)
     # 发送邮件
     smtp = smtplib.SMTP_SSL()
@@ -177,6 +177,6 @@ select * from
     subject = ''
     plainText = ''
     htmlText = ''
-    zip_dir('E:/opt/script/data/' + datetime.datetime.now().strftime('%Y%m%d') + '20170923001',
-            'E:/opt/script/data/' + datetime.datetime.now().strftime('%Y%m%d') + '20170923001/data.zip')
+    zip_dir('E:',
+            'E:')
     sendEmail(authInfo, emailInfo, subject, plainText, htmlText, '')

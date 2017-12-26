@@ -39,7 +39,7 @@ def sendEmail(authInfo, emailInfo, subject, plainText, htmlText, file):
     # 'alternative' part, so message agents can decide which they want to display.
     msgAlternative = MIMEMultipart('alternative')
     msgRoot.attach(msgAlternative)
-    # 设定纯文本信息^M
+    # 设定纯文本信息
     msgText = MIMEText(plainText, 'plain', 'GB18030')
     msgAlternative.attach(msgText)
     # 设定HTML信息
@@ -102,35 +102,18 @@ if __name__ == '__main__':
 #    conn.set_character_set('utf8')
     cursor = conn.cursor()
 
-    if not os.path.exists('E:/opt/script/data/' + datetime.datetime.now().strftime('%Y%m%d') + '20170923001'):
-        os.mkdir('E:/opt/script/data/' + datetime.datetime.now().strftime('%Y%m%d') + '20170923001')
+    if not os.path.exists('E:'):
+        os.mkdir('E:')
 
     days = [datetime.datetime.now().strftime('%Y-%m-%d')]
-#    cursor.execute('call proc_sky_coll_base_a1()');
+#    cursor.execute('call proc*()');
     sqls = ['''
-select * from risk.sky_coll_future_amt_cus
-''', '''
-select * from risk.sky_collection_daily_report where report_date=curdate()
-''', '''
-select * from risk.sky_cycle_y
-''', '''
-select * from risk.sky_wb_cycle_y
-''', '''
-select * from risk.sky_day_cycle_y
-''', '''
-select * from risk.sky_day_wb_cycle_y
-''', '''
-select * from risk.sky_daily_repay_detail
-''', '''
-select * from risk.sky_total_cycle_by_ovd_date
-''', '''
-select * from risk.sky_overdue_distribution
+select * from 
 '''
             ]
-    names = ['''空中信付未来到期金额''', '''空中信付逾期回收率统计表''', '''空中信付cycle回收率''', '''空中信付cycle外包回收率''', '''空中信付cycle账单日回收率''',
-             '''空中信付cycle账单日外包回收率''', '''空中信付每日还款流水表''', '''空中信付累计回收（按入催日期）''', '''空中信付逾期分布情况表''']
-    if not os.path.exists('E:/opt/script/data/' + datetime.datetime.now().strftime('%Y%m%d') + '20170923001'):
-        os.mkdir('E:/opt/script/data/' + datetime.datetime.now().strftime('%Y%m%d') + '20170923001')
+    names = ['''''']
+    if not os.path.exists('E:'):
+        os.mkdir('E:')
     filenames = []
     print(len(sqls))
     for z in range(len(sqls)):
@@ -139,7 +122,7 @@ select * from risk.sky_overdue_distribution
         columns = cursor.description
         columncount = len(cursor.description)
         rowlen = len(rows)
-        wbk = xlsxwriter.Workbook('E:/opt/script/data/' + datetime.datetime.now().strftime('%Y%m%d') + '20170923001/' + names[z] + '.xlsx')
+        wbk = xlsxwriter.Workbook('E:')
 
         pages = 0
         pagesize = 60000
@@ -175,23 +158,23 @@ select * from risk.sky_overdue_distribution
                          sheet.write((i+1)-(page-1)*pagesize,j,rows[i][j])
                       else:
                          sheet.write((i+1)-(page-1)*pagesize,j,rows[i][j])
-       # wbk.save('E:/opt/script/data/' + datetime.datetime.now().strftime('%Y%m%d') + '20170923001/' + names[z] + '.xlsx')
-        filenames.append('E:/opt/script/data/' + datetime.datetime.now().strftime('%Y%m%d') + '20170923001/' + names[z] + '.xlsx')
+       # wbk.save('E:')
+        filenames.append('E:')
     print(filenames)
     cursor.close()
     conn.close()
 
     authInfo = {}
     authInfo['server'] = 'smtp.qq.com'
-    authInfo['user'] = '1058012452@qq.com'
-    authInfo['password'] = 'fzkjyudlyfnfbgab'
+    authInfo['user'] = '@qq.com'
+    authInfo['password'] = '*****'
 
     emailInfo = {}
     emailInfo['From'] = '@qq.com'
     emailInfo['To'] = '@aladingbank.com,@qq.com'
     emailInfo['Cc'] = ''
     emailInfo['Bcc'] = ''
-    subject = '空中信付催收日报'
+    subject = ''
     plainText = ''
     htmlText = ''
     zip_dir('E:/opt/script/data/' + datetime.datetime.now().strftime('%Y%m%d') + '20170923001',

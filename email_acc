@@ -97,7 +97,7 @@ if __name__ == '__main__':
     begintime = (datetime.datetime.now() - datetime.timedelta(days=1)).strftime('%Y-%m-%d') + ' 00:00:00'
     endtime = datetime.datetime.now().strftime('%Y-%m-%d') + ' 00:00:00'
 
-    conn = pymysql.connect(host='rm-uf6bei4484dhn5q4yo.mysql.rds.aliyuncs.com', port=3306, user='risk_lxq', passwd='Span201225', db='mysql', charset='utf8')
+    conn = pymysql.connect()
     conn.autocommit(1)
 #    conn.set_character_set('utf8')
     cursor = conn.cursor()
@@ -187,8 +187,8 @@ select * from risk.sky_overdue_distribution
     authInfo['password'] = 'fzkjyudlyfnfbgab'
 
     emailInfo = {}
-    emailInfo['From'] = '1058012452@qq.com'
-    emailInfo['To'] = 'lixiaoqian@aladingbank.com,997221980@qq.com'
+    emailInfo['From'] = '@qq.com'
+    emailInfo['To'] = '@aladingbank.com,@qq.com'
     emailInfo['Cc'] = ''
     emailInfo['Bcc'] = ''
     subject = '空中信付催收日报'

@@ -1,6 +1,6 @@
 # 查找excel每行中存在'PTP'or'ptp'关键字的行
 import pandas as pd
-dd = pd.read_excel("C:\\Users\\lixiaoqian\\Desktop\\12月1-4号M0案件跟进明细124.xlsx")
+dd = pd.read_excel("C:\\Users\\lixiaoqian\\Desktop\\******.xlsx")
 dd = dd.fillna("00")
 def key_word_find(ss):
     ss = str(ss)
@@ -15,17 +15,17 @@ for i in dd.columns:
 # 表头
 dd["all_find"] = dd[[ '2017-12-01_find',
                       '2704612_find',               
-                      '敖成松_find',
-                      '15285930015_find',                 
+                      '***_find',
+                      '****_find',                 
                       '男_find',
-                      '8713828_find', 
-                      '43043.49575231481_find',
+                      '*****_find', 
+                      '*****_find',
                       '2017-12-02_find',              
                       '1238_find',
                       '1000_find',               
                       '238_find',
-                      '791398619@qq.com_find',           
-                      'CCA0422_find',
+                      '****@qq.com_find',           
+                      '***_find',
                       'OFF_find',       
                       'Unnamed: 14_find',
                       'Unnamed: 15_find',       

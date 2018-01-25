@@ -1,0 +1,34 @@
+import pandas as pd
+import numpy as np
+from pandas import Series, DataFrame
+
+#读excel  
+#ovr30,vari0155,vari0311...
+#   0     100     2000
+#   0     50      300
+#   1     50      200
+#   0     0       50
+#   1     0       10
+#for 读ovr30,vari0155,处理完chi2_contingency后，继续读ovr30,vari0311,继续处理
+df = pd.read_excel("C:\\Users\\lixiaoqian\\Desktop\\0155.xlsx")
+df.head()
+
+#为pd.cut做准备，bins数据桶（1，10],(10,20]...(90,100]分10组,求每组中0，1的个数
+#需优化，数值从1-10000不等，所以要找个等值切分函数，将数据集分10组
+bins = [0,10,20,30,40,50,60,70,80,90,100]
+
+#创建DataFrame处理数据集
+dd=DataFrame()
+dd['ovr30']=df['ovr30']
+dd['vari0155']=df['vari0155']
+  #新增等值切割组
+dd['category']=pd.cut(df['vari0155'],bins,labels=['one','two','three','for','five','six','seven','eight','nine','ten'])
+
+#将处理完的数组放入计算公式，求其卡方值
+obs=pd.pivot_table(dd,index=['ovr30'],columns=['category'],aggfunc='count')
+chi2_contingency(obs)
+#其中会算出三个值，取第一个值带上列名塞入excel
+#  因素    卡方值
+#vari0155  ***
+#vari0311  ***
+

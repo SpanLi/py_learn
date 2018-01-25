@@ -10,7 +10,7 @@ from pandas import Series, DataFrame
 #   0     0       50
 #   1     0       10
 #for 读ovr30,vari0155,处理完chi2_contingency后，继续读ovr30,vari0311,继续处理
-df = pd.read_excel("C:\\Users\\lixiaoqian\\Desktop\\0155.xlsx")
+df = pd.read_excel("C:\\0155.xlsx")
 df.head()
 
 #为pd.cut做准备，bins数据桶（1，10],(10,20]...(90,100]分10组,求每组中0，1的个数

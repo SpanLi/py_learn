@@ -11,21 +11,25 @@ from pandas import Series, DataFrame
 #   1     0       10
 ？？？#for 读ovr30,vari0155,处理完chi2_contingency后，继续读ovr30,vari0311,继续处理
 df = pd.read_excel("C:\\0155.xlsx")
-df.head()
+df.set_index('ovr30')
 
-#创建DataFrame处理数据集
-dd=DataFrame()
-dd['ovr30']=df['ovr30']
-dd['vari0155']=df['vari0155']
-？？？#新增等值切割列，偏向于方法二，但需在不影响其他列的情况下去极值
-#方法一
-#为pd.cut做准备，bins数据桶（1，10],(10,20]...(90,100]分10组,求每组中0，1的个数
-#需优化，数值从1-10000不等，固无法定义每列bins
-bins = [0,10,20,30,40,50,60,70,80,90,100]
-dd['category']=pd.cut(df['vari0155'],bins,labels=['one','two','three','for','five','six','seven','eight','nine','ten'])
-#方法二
-#虽等值切分，但无法去极值，且如果切分组中个数为0，则卡方计算是会报错
-dd['category']=pd.cut(df['vari0155'],10,labels=['one','two','three','for','five','six','seven','eight','nine','ten'])
+ovr=df['ovr30']
+vari=df['vari0155']
+
+def chi_test(ovr30,vari):
+    dd=DataFrame()
+
+    dd['ovr30']=ovr30
+    dd['vari0155']=vari
+    dd['aaa']=pd.cut(vari,10,labels=['one','two','three','for','five','six','seven','eight','nine','ten'])
+
+    obs=pd.pivot_table(dd,index=['ovr30'],columns=['aaa'],aggfunc='count')
+
+    g, p, dof, expctd = chi2_contingency(obs, lambda_="log-likelihood")
+    
+    print (g)
+
+chi_test(ovr,vari)
 
 #将处理完的数组放入计算公式，求其卡方值
 obs=pd.pivot_table(dd,index=['ovr30'],columns=['category'],aggfunc='count')

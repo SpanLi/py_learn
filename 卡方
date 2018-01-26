@@ -1,8 +1,8 @@
-
 import pandas as pd
 import numpy as np
 from pandas import Series, DataFrame
 from scipy.stats import chi2_contingency
+from numpy import array, cov, corrcoef
 
 df = pd.read_excel("C:\\Users\\lixiaoqian\\Desktop\\0155.xlsx")
 df.set_index('ovr30')
@@ -17,14 +17,18 @@ def chi_test(ovr30,vari):
 
     dd['ovr30']=ovr30
     dd['vari0155']=vari
-    dd['aaa']=pd.cut(vari,10,labels=['one','two','three','for','five','six','seven','eight','nine','ten'])
+    dd['aaa']=pd.cut(vari,2,labels=['one','two'])
 
     obs=pd.pivot_table(dd,index=['ovr30'],columns=['aaa'],aggfunc='count')
-
+    # 卡方
     g, p, dof, expctd = chi2_contingency(obs, lambda_="log-likelihood")
+    # 协方差
+    cov(obs, bias=1)
+    # 相关系数
+    corrcoef(obs)
     
     print (g)
-
+    
 
 chi_test(ovr,vari)
 

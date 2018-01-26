@@ -31,10 +31,11 @@ def chi_test(ovr30,vari):
 
 chi_test(ovr,vari)
 
+???如何将vari列名和g值导入excel
+
 #将处理完的数组放入计算公式，求其卡方值
-obs=pd.pivot_table(dd,index=['ovr30'],columns=['category'],aggfunc='count')
-chi2_contingency(obs)
-？？？#其中会算出三个值，取第一个值带上列名塞入excel
+#obs=pd.pivot_table(dd,index=['ovr30'],columns=['category'],aggfunc='count')
+#chi2_contingency(obs)
 #  因素    卡方值
 #vari0155  ***
 #vari0311  ***

@@ -14,18 +14,16 @@ def chi_test(ovr30, vari):
     obs=obs.fillna(0)
     # 卡方
     g, p, dof, expctd = chi2_contingency(obs, lambda_="log-likelihood")
+    
+????????从vari中随机挑取20000个样本数,组成2维数组aaaaa     
+    
     # 协方差
-    #cov(obs, bias=1)
-    covv = cov(obs, bias=True)
+    #cov(aaaaa, bias=1)
+    covv = cov(aaaaa, bias=True)
     # 相关系数
-    corr=corrcoef(obs)
-    
-    gcc = DataFrame()
-    gcc['g'] = g
-    gcc['covv'] = covv[0][1]
-    gcc['corr'] = corr[0][1]
-    
-    return gcc
+    corr=corrcoef(aaaaa)
+
+    return g,covv[0][1],corr[0][1]
 
 dtf = pd.read_excel("C:\\Users\\lixiaoqian\\Desktop\\test.xlsx")
 

@@ -16,7 +16,10 @@ def chi_test(ovr30, vari):
     g, p, dof, expctd = chi2_contingency(obs, lambda_="log-likelihood")
     
 ????????从vari中随机挑取20000个样本数,组成2维数组aaaaa     
-    
+    aaaaa = DataFrame()
+    aaaaa['ovr30'] = ovr30
+    aaaaa['vari0155'] = vari
+    aaaaa['aaa']=随机各挑取20000样本数
     # 协方差
     #cov(aaaaa, bias=1)
     covv = cov(aaaaa, bias=True)

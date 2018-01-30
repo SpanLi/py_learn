@@ -1,7 +1,8 @@
 import pandas as pd
 from pandas import  DataFrame
 from scipy.stats import chi2_contingency
-from numpy import cov, corrcoef
+#from numpy import cov, corrcoef
+
 
 def chi_test(ovr30, vari):
     dd = DataFrame()
@@ -14,21 +15,17 @@ def chi_test(ovr30, vari):
     obs=obs.fillna(0)
     # 卡方
     g, p, dof, expctd = chi2_contingency(obs, lambda_="log-likelihood")
-    
-????????从vari中随机挑取20000个样本数,组成2维数组aaaaa     
-    aaaaa = DataFrame()
-    aaaaa['ovr30'] = ovr30
-    aaaaa['vari0155'] = vari
-    aaaaa['aaa']=随机各挑取20000样本数
+
+    return g
+
     # 协方差
-    #cov(aaaaa, bias=1)
-    covv = cov(aaaaa, bias=True)
+    #cov(obs, bias=1)
+    #covv = cov(obs, bias=True)
     # 相关系数
-    corr=corrcoef(aaaaa)
+    #corr=corrcoef(obs)
+    
 
-    return g,covv[0][1],corr[0][1]
-
-dtf = pd.read_excel("C:\\Users\\lixiaoqian\\Desktop\\test.xlsx")
+dtf = pd.read_excel("C:\\Users\\**\\Desktop\\**.xlsx")
 
 col = dtf.columns
 
@@ -40,141 +37,8 @@ for n in range(1, len(col)):
     p = round(chi_test(var30, dtf[col[n]]), 3)
     final = final.append({"factor": col[n], "P": p}, ignore_index=True)
 print(final)
-#final.to_excel("C:\\Users\\lixiaoqian\\Desktop\\0157.xlsx")
+
+final.to_excel("C:\\Users\\**\\Desktop\\**.xlsx")
 
 
-
-=============================================================================================
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-import pandas as pd
-import numpy as np
-from pandas import Series, DataFrame
-from scipy.stats import chi2_contingency
-from numpy import array, cov, corrcoef
-
-df = pd.read_excel("C:\\Users\\lixiaoqian\\Desktop\\0155.xlsx")
-df.set_index('ovr30')
-
-ovr=df['ovr30']
-vari=df['vari0155']
-
-
-
-def chi_test(ovr30,vari):
-    dd=DataFrame()
-
-    dd['ovr30']=ovr30
-    dd['vari0155']=vari
-    dd['aaa']=pd.cut(vari,2,labels=['one','two'])
-
-    obs=pd.pivot_table(dd,index=['ovr30'],columns=['aaa'],aggfunc='count')
-    # 卡方
-    g, p, dof, expctd = chi2_contingency(obs, lambda_="log-likelihood")
-    # 协方差
-    cov(obs, bias=1)
-    # 相关系数
-    corrcoef(obs)
-    
-    print (g)
-    
-
-chi_test(ovr,vari)
-
-
-=============================================================================================
-ovr30	vari0155	vari0156	vari0157
-1	1	1	10
-1	2	2	20
-1	3	3	30
-1	4	4	40
-1	5	5	50
-1		15	90
-1	6	6	60
-1	7	7	70
-1	8	8	80
-1	9	9	90
-1	10	10	100
-1	0	0	0
-1	2	2	20
-1	3	3	30
-0	1	1	10
-0	2	2	20
-0	3	3	30
-0	4	4	40
-0	5	5	50
-0	3	3	30
-0	0	0	0
-0	6	6	60
-0	6	6	60
-0	7	7	70
-0	8	8	80
-0	9	9	90
-0	10	10	100
-0		12	70
-0	5	5	50
-0	6	6	60
-
-
-
-
-
-
-import pandas as pd
-import numpy as np
-from pandas import Series, DataFrame
-
-#读excel  
-#ovr30,vari0155,vari0311...
-#   0     100     2000
-#   0     50      300
-#   1     50      200
-#   0     0       50
-#   1     0       10
-？？？#for 读ovr30,vari0155,处理完chi2_contingency后，继续读ovr30,vari0311,继续处理
-df = pd.read_excel("C:\\0155.xlsx")
-df.set_index('ovr30')
-
-ovr=df['ovr30']
-vari=df['vari0155']
-
-def chi_test(ovr30,vari):
-    dd=DataFrame()
-
-    dd['ovr30']=ovr30
-    dd['vari0155']=vari
-    dd['aaa']=pd.cut(vari,10,labels=['one','two','three','for','five','six','seven','eight','nine','ten'])
-
-    obs=pd.pivot_table(dd,index=['ovr30'],columns=['aaa'],aggfunc='count')
-
-    g, p, dof, expctd = chi2_contingency(obs, lambda_="log-likelihood")
-    
-    print (g)
-
-chi_test(ovr,vari)
-
-???如何将vari列名和g值导入excel
-
-#将处理完的数组放入计算公式，求其卡方值
-#obs=pd.pivot_table(dd,index=['ovr30'],columns=['category'],aggfunc='count')
-#chi2_contingency(obs)
-#  因素    卡方值
-#vari0155  ***
-#vari0311  ***
 

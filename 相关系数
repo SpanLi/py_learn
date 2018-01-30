@@ -1,0 +1,43 @@
+import pandas as pd
+from pandas import  DataFrame
+from numpy import corrcoef
+
+
+def chi_test(ovr30, vari):
+    dd = DataFrame()
+
+    dd['ovr30'] = ovr30
+    dd['vari0155'] = vari
+    
+    frame=DataFrame()
+    frame1=dd.loc[(dd['ovr30'] == 0)].sample(n=20000)
+    frame2=dd.loc[(dd['ovr30'] == 1)].sample(n=20000)
+
+    frame=pd.concat([frame1,frame2],ignore_index=True)
+    frame['sort_num']=frame['vari0155'].groupby(frame['ovr30']).rank(ascending=0,method='first') 
+    obs=frame.pivot_table('vari0155',index=['ovr30'],columns=['sort_num'],fill_value=0)
+    obs=obs.fillna(0)
+    corr=corrcoef(obs)
+
+    return corr[0][1]
+
+    
+
+dtf = pd.read_excel("C:\\Users\\lixiaoqian\\Desktop\\ios12.xlsx")
+dtf.set_index('ovr30')
+
+col = dtf.columns
+
+var30 = dtf[col[0]]
+
+final = pd.DataFrame(columns=["factor", "P"])
+
+for n in range(1, len(col)):
+    p = round(chi_test(var30, dtf[col[n]]), 3)
+    final = final.append({"factor": col[n], "P": p}, ignore_index=True)
+print(final)
+
+final.to_excel("C:\\Users\\lixiaoqian\\Desktop\\ios22.xlsx")
+
+
+

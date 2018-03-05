@@ -1,0 +1,78 @@
+-- 样例
+# 对不同方法进行时间测试
+#%time tmp=sorted(dist_cust[:10000],key=lambda x: name_cnt[top9_data[top9_data.customer_id==x]['name']].min(),reverse=True)   
+time0=time.time()
+temp=[]
+for i in dist_cust[0:100]:
+    temp.append(name_flag_count(i))
+print('the run time is %f' % (time.time()-time0))
+
+%time temp=[name_flag_count(i) for i in dist_cust[-100:]]
+%time idx=name_flag_count(1327)
+%time idx=map_povit(1320)     
+%time idx1=map_povit(173078)    
+%time idx3=map_count(173078)
+
+# 用进程池进行并发计算，并序列化结果集result_cust
+from  multiprocessing.dummy import Pool
+%%time
+pl=Pool(5)
+re=pl.map(name_flag_count,dist_cust)             --name_flag_count函数名；dist_cust参数
+pl.close()
+result_cust=[i for i in re if i]
+
+
+
+-- 需修改代码 用进程池替换for
+# -*- coding: utf-8 -*-
+"""
+Created on Thu Feb 22 18:05:43 2018
+
+@author: lixiaoqian
+"""
+
+import pandas as pd
+from pandas import  DataFrame
+from scipy.stats import chi2_contingency
+#from numpy import cov, corrcoef
+
+
+def chi_test(ovr30, vari):              -- 建议把参数并为一列
+    dd = DataFrame()
+
+    dd['ovr30'] = ovr30
+    dd['vari0155'] = vari
+	# null值不进组
+    dd['aaa'] = pd.cut(vari, 5, labels=['one', 'two','three','for','five'])
+
+    obs = pd.pivot_table(dd, index=['ovr30'], columns=['aaa'], aggfunc='count')
+    obs=obs.fillna(0)
+    # 卡方
+    g, p, dof, expctd = chi2_contingency(obs, lambda_="log-likelihood")
+
+    return g
+
+    # 协方差
+    #cov(obs, bias=1)
+    #covv = cov(obs, bias=True)
+    # 相关系数
+    #corr=corrcoef(obs)
+    
+
+dtf = pd.read_excel("C:\\Users\\***\\Desktop\\***.xlsx")
+
+col = dtf.columns
+
+var30 = dtf[col[0]]
+
+final = pd.DataFrame(columns=["factor", "P"])
+
+for n in range(1, len(col)):
+    p = round(chi_test(var30, dtf[col[n]]), 3)
+    final = final.append({"factor": col[n], "P": p}, ignore_index=True)
+print(final)
+
+final.to_excel("C:\\Users\\***\\Desktop\\***.xlsx")
+
+
+

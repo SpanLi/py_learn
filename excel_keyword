@@ -1,6 +1,6 @@
 # 查找excel每行中存在'PTP'or'ptp'关键字的行
 import pandas as pd
-dd = pd.read_excel("C:\\Users\\lixiaoqian\\Desktop\\******.xlsx")
+dd = pd.read_excel("***")
 dd = dd.fillna("00")
 def key_word_find(ss):
     ss = str(ss)
@@ -43,4 +43,4 @@ def num_judge(ii):
     else:
         return 0
 dd["all_find"] = dd["all_find"].map(num_judge)
-dd[dd["all_find"]==1].to_excel("C:\\Users\\lixiaoqian\\Desktop\\124.xlsx")
+dd[dd["all_find"]==1].to_excel("***")

@@ -1,11 +1,11 @@
-
 import pandas as pd
 from pandas import  DataFrame
 import numpy as np
 
+#vari均值、最大最小、总量
 def GroupCut(ovr, vari):
     dd = DataFrame()
-    dd['ovd_m2'] = ovr
+    #dd['ovd_m2'] = ovr
     dd['vari'] = vari
     #dd['sort_num']=dd['vari'].rank(ascending=1,method='dense')  
     #dd['cut_num']=pd.cut(dd['sort_num'], 10, labels=['1', '2','3','4','5','6','7','8','9','10'])
@@ -15,17 +15,33 @@ def GroupCut(ovr, vari):
     
     return grouped
 
-dtf = pd.read_excel("C:\\Users\\***\\Desktop\\test.xlsx")  #格式ovd_m2(0,1);vari_001;vari_002...
+#响应度、提升度
+def GroupMean(ovr, vari):
+    dd = DataFrame()
+    dd['ovd_m2'] = dtf[col[0]]
+    dd['vari'] = dtf[col[1]]
+    #dd['sort_num']=dd['vari'].rank(ascending=1,method='dense')  
+    #dd['cut_num']=pd.cut(dd['sort_num'], 10, labels=['1', '2','3','4','5','6','7','8','9','10'])
+    dd['ovdm2_zb'] = dd['ovd_m2'] / dd['ovd_m2'].mean()
+    #dd['vari_zb'] = dd['vari'] / dd['vari'].mean()
+    dd['qcut_num']=pd.qcut(dd['vari'],np.arange(0.1,1.1,0.1),duplicates='drop')
+    
+    k1_means = dd.groupby('qcut_num').mean().add_prefix('mean_')
+    
+    return k1_means
+
+
+dtf = pd.read_excel("C:\\Users\\***\\Desktop\\test.xlsx")
 
 col = dtf.columns
 
 ovr = dtf[col[0]]
 
-final = pd.DataFrame()
+#final = pd.DataFrame(columns=["factor", "P","Q"])
 
 for n in range(1, len(col)):
     p = round(GroupCut(ovr, dtf[col[n]]), 3)
-    final = p#final.append({"factor": col[n], "P": p}, ignore_index=True)
-print(final)
-
-final.to_excel("C:\\Users\\***\\Desktop\\test1.xlsx")
+    q = round(GroupMean(ovr, dtf[col[n]]), 3)
+    #final = final.append({"factor": col[n], "P": p['ovd_m2'],"Q":p['vari']}, ignore_index=True)
+print(p)
+print(q)

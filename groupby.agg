@@ -1,6 +1,9 @@
+
+
 import pandas as pd
 from pandas import  DataFrame
 import numpy as np
+
 
 #vari均值、最大最小、总量
 def GroupCut(ovr, vari):
@@ -18,8 +21,8 @@ def GroupCut(ovr, vari):
 #响应度、提升度
 def GroupMean(ovr, vari):
     dd = DataFrame()
-    dd['ovd_m2'] = dtf[col[0]]
-    dd['vari'] = dtf[col[1]]
+    dd['ovd_m2'] = ovr
+    dd['vari'] = vari
     #dd['sort_num']=dd['vari'].rank(ascending=1,method='dense')  
     #dd['cut_num']=pd.cut(dd['sort_num'], 10, labels=['1', '2','3','4','5','6','7','8','9','10'])
     dd['ovdm2_zb'] = dd['ovd_m2'] / dd['ovd_m2'].mean()
@@ -37,11 +40,45 @@ col = dtf.columns
 
 ovr = dtf[col[0]]
 
-#final = pd.DataFrame(columns=["factor", "P","Q"])
+final = pd.DataFrame(columns=["factor", "Q"])
 
 for n in range(1, len(col)):
     p = round(GroupCut(ovr, dtf[col[n]]), 3)
-    q = round(GroupMean(ovr, dtf[col[n]]), 3)
-    #final = final.append({"factor": col[n], "P": p['ovd_m2'],"Q":p['vari']}, ignore_index=True)
-print(p)
-print(q)
+    #q = round(GroupMean(ovr, dtf[col[n]]), 3)
+    print(col[n])
+    print(p['vari'])
+    final = final.append({"factor": col[n],"Q":p['vari']['count']}, ignore_index=True)
+print(final)
+#print(q)
+
+final.to_excel("C:\\Users\\***\\Desktop\\test1.xlsx")
+
+
+#grouped['vari'].unstack()
+
+#grouped['ovd_m2']['count']/dtf['ovd_m2'].count()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

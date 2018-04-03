@@ -1,4 +1,5 @@
 
+
 import pandas as pd
 from pandas import  DataFrame
 import numpy as np
@@ -25,12 +26,14 @@ def GroupCut(ovr, vari):
     
     return df
 
-def plotMean(p):
+def plotMean(p,name):
     dfp = DataFrame()
-    dfp = p.loc[:,['mean_qcut_num','ovd_zb']]
+    dfp = p.loc[:,['mean_qcut_num','ovd_zb']]   
     dfp.plot(x='mean_qcut_num')
     p['mean_ovd_m2'].plot(x='mean_qcut_num',secondary_y=True, style='g')
-    return plt.savefig("filename.png")
+    plt.title(name)
+    pfile=plt.savefig("C:\\Users\\***\\Desktop\\"+name+".png")
+    return pfile
 
 dtf = pd.read_excel("C:\\Users\\***\\Desktop\\test.xlsx")
 
@@ -38,14 +41,29 @@ col = dtf.columns
 
 ovr = dtf[col[0]]
 
-final = pd.DataFrame(columns=["factor","P","Q"])
+#final = pd.DataFrame(columns=["factor","P","Q"])
 
 for n in range(1, len(col)):
-    p = round(GroupCut(ovr, dtf[col[n]]), 3)    
-    final = final.append({"factor": col[n], "P": p,"Q":plotMean(p)}, ignore_index=True)
-print(final)
+    colname=col[n]
+    p = round(GroupCut(ovr, dtf[col[n]]), 3)   
+    #plt.title(round(dtf[col[n]], 3).name)
+    print(colname)
+    print(p)
+    plotMean(p,dtf[col[n]].name)
+    #final = final.append({"factor": col[n], "P": p,"Q":plotMean(p)}, ignore_index=True)
+    #final = pd.merge(colname,p)
+ 
+    
+#p.to_csv("C:\\Users\\***\\Desktop\\test1.csv", index=False)
+#final.to_csv("C:\\Users\\***\\Desktop\\test11.csv", index=False)
 
-final.to_excel("C:\\Users\\***\\Desktop\\test1.xlsx")
+
+
+
+
+
+
+
 
 
 
